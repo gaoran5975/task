@@ -1,5 +1,5 @@
 <template>
-        <div class='ant-modal-content' ref='ant-content'>
+        <div class='ant-modal-content' ref='ant-content' id="login">
               <button type="button"  class="ant-modal-close"  @click="removeall"><span class="ant-modal-close-x"><i aria-label="图标: close" class="anticon anticon-close ant-modal-close-icon"><svg viewBox="64 64 896 896" class="" data-icon="close" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg></i></span></button>
               <div class=ant-modal-body>
               <h2>登录</h2>
@@ -71,14 +71,20 @@ export default {
                       else{
                           this.axios.post('/api/user/login?loginMethod=1&mobile='+this.mobile+'&password='+this.password).then((res)=>{
                           console.log(res)
-                          var status = res.data.code;
+                          var status = res.data.status;
                           var This = this;
-                          if(status === 500){
+                          if(status == 0){
                                 this.errorInfo = this.tswz[4]
                                this.errorFlag = true;
                                return 
                           }
                           else{
+                              var userstatus = res.data.data.userStatus;
+                              console.log(userstatus)
+                              if(userstatus == 1){
+                                    //刚注册，去填写基本信息页
+                                    this.$router.push('/jbxxtx');  
+                              }
                               // this.$store.commit('GET_USER', data.company) 存储用户名  展示时候用 {{this.$store.state.company}}   
                                 // This.$router.push('/mine/center');
                           }
@@ -120,7 +126,10 @@ export default {
         line-height: 1.5;    list-style: none;    font-feature-settings: 'tnum';    position: relative;
         display: inline-block;    width: 100%;    text-align: start;    margin-bottom: 12px;}
   .login-modal__input  input.ant-input {
-        height: 30px;    font-size: 14px;margin-top: 12px;padding-left: 0;  border: 0;        border-bottom: 1px solid #e8e8e8; border-radius: 0;width: 100%;}
+        height: 30px;    font-size: 14px;margin-top: 12px;padding-left: 0;  border: 0;        border-bottom: 1px solid #e8e8e8; border-radius: 0;width: 100%;
+        background-color:#fff!important; }
+  #login .login-modal__input input.ant-input{box-shadow: inset 0 0 0 1000px #ffffff!important;}      
+  input:-webkit-autofill{background-color:#fff!important; }      
    .login-modal__input  input.ant-input:focus {
         box-shadow: none;
         border-radius: 0;background: none

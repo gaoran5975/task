@@ -1,25 +1,29 @@
 <template>
   <div class="htshouye">
-       <Register2></Register2>
+       首页
   </div>
 </template>
 
 <script>
 
-import Register2 from '@/components/Register2';
 
 export default {
   name: 'Htshouye',
   components:{
-      Register2
+      
   },
   data () {
      return  {
-         
+          songList:''
      }
   },
+  created:function(){
+                this.getParams();
+            },
       methods: {
-       
+            getParams:function(){
+
+      },
 
     }
 }

@@ -13,18 +13,28 @@
 									                                      </nav>
 							                            </el-col>
 							                            <el-col :span="15">
-							                                 		<div class="grid-content bg-purple-light">
-							                                                    <select v-model="selectvalue"     @change="changeProduct($event)" placeholder="全能互动（北京）科技有限公司">
+							                                 		<div class="grid-content bg-purple-light" id="grxx">
+							                           <!--                          <select v-model="selectvalue"     @change="changeProduct($event)" placeholder="全能互动（北京）科技有限公司">
 							                                                          <option value="全能互动（北京）科技有限公司">全能互动（北京）科技有限公司</option>
 							                                                          <option v-for="item in kindList" v-bind:value="item.name" v-text="item.name"></option>
-							                                                        </select>
+							                                                        </select> -->
+                                                                      <el-select v-model="value" placeholder="请选择">
+                                                                      <el-option
+                                                                        v-for="item in options"
+                                                                        :key="item.value"
+                                                                        :label="item.label"
+                                                                        :value="item.value">
+                                                                      </el-option>
+                                                                    </el-select>
 							                                		</div>
 							                            </el-col>
 							                </div>
 							        </el-row>          
-					        </el-header>      
-				</el-container>    
-				<router-view/>
+					        </el-header>
+                  <el-main ref="maincont">
+                        <router-view/>
+                  </el-main>      
+				</el-container>            
 	</div>
 </template>
 <script type="text/javascript">
@@ -40,7 +50,26 @@
     	return {
     			 kindList:[{name:"小可爱",id:1},{name:"小仙女",id:2},{name:"小宝龙",id:3}],
           		 selectvalue:{},
+           options: [{
+                value: '选项1',
+                label: '黄金糕'
+              }, {
+                value: '选项2',
+                label: '双皮奶'
+              }, {
+                value: '选项3',
+                label: '蚵仔煎'
+              }],
+          value: ''    
+
+
     	}
+    },
+    activated(){
+        console.log(1)
+        console.log(this.$store.state.user.company) 
+        this.value = this.$store.state.user.company;
+
     },
     mounted(){
 
@@ -54,7 +83,6 @@
 
 </script>
 <style scoped>
-.header{height: 64px}
     .el-container {
   height: 100%;
 }
@@ -66,8 +94,7 @@
   }
   
   .el-main {
-    background: #F4F7F9;
-    text-align: center;line-height: 160px;padding: 0
+    background: #F4F7F9;padding: 0
   }
   
   body > .el-container {margin-bottom: 40px;
@@ -82,7 +109,7 @@
   select{width:227px;height: 20px;margin-top: 25px;margin-bottom: 5px;margin-left: 10px;font-family: PingFangSC-Regular;font-size: 14px;color: #C2C5CC;    background: #19283F;border-color: transparent;}
   select option{font-family: PingFangSC-Regular;font-size: 14px;color: #C2C5CC;}
   .header .container >div  .logo{width: 133px;height: 30px;    line-height: 78px;    display: inline-block;    float: left;}.nav{    margin-top: 7px;}
-    .logo img{width: 100%}
+    .logo img{width: 95%}
     nav{flex-shrink: 1;flex-grow:1;margin-left: 208px;    height: 100%;display: flex;flex-direction:row;justify-content:space-between;line-height: 64px;}
     nav a{ont-family: PingFangSC-Regular;font-size: 16px;color: #C2C5CC;text-decoration: none;position: relative;}
     nav a.cur{color: #00A0FF;}
@@ -92,5 +119,6 @@
     h3{font-size: 18px;color: #333333;line-height: 60px;text-align: left;    padding-left: 30px;}
      .router-link-active{color: #00A0FF;}
     .router-link-active span{display: block;} 
-
+    .el-main{background: #F4F7F9;display: block;}
+    >>>#grxx .el-input--suffix .el-input__inner{background: transparent;border: 0;font-size: 14px;color: #C2C5CC;text-align: right;}
 </style>

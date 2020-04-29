@@ -45,12 +45,8 @@ export default {
             ]
         },
         {
-            path : 'ggglcd1',
-            component : () => import('@/views/Gggl/child1.vue')
-        },
-        {
-            path : '/houtai',
-            redirect : '/houtai/sy'
+            path : 'jbxxtx',
+            component : () => import('@/components/Register2')
         }
     ]
 }
